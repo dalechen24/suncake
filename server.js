@@ -22,7 +22,7 @@ server.delete('/user', function(req, res) {
 });
 
 // exception handling
-server.use(function(req, res) {
+server.use(function(req, res, next) {
 	res.type('text/html');
 	res.status(404);
 	res.send('<h1>404 - Not Found</h1>');
