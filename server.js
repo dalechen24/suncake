@@ -5,9 +5,18 @@ var server = express();
 server.set('port', process.env.PORT || 3000);
 
 server.get('/', function(req, res) {
-	res.type('text/html');
-	res.send('<h1> Hello World</h1>');
+	res.send('Hello World from GET request.');
 });
+server.post('/', function(req, res) {
+	res.send('Hello world from POST request.');
+});
+server.put('/user', function(req, res) {
+	res.send('Got a PUT request at /user.');
+});
+server.delete('/user', function(req, res) {
+	res.send('Got a DELETE request at /user.');
+});
+
 
 server.use(function(req, res) {
 	res.type('text/html');
