@@ -6,14 +6,19 @@ var http = require('http');
 var server = express();
 server.set('port', process.env.PORT || 3000);
 server.use(express.static('public'));
+var connected_num = 0;
 
 // http verbs
 server.get('/', function(req, res) {
+	connected_num++;
+	console.log(connected_num);
 	res.send('Hello World from GET request.');
 });
+
 server.post('/', function(req, res) {
-	res.send('Hello world from POST request.');
+	res.end('Hello World from POST request.');
 });
+
 server.put('/user', function(req, res) {
 	res.send('Got a PUT request at /user.');
 });
@@ -37,4 +42,7 @@ server.use(function(err, req, res, next) {
 // server listen on...
 server.listen(server.get('port'), function() {
 	console.log('Server started on localhost:' + server.get('port') + '; press Ctrl-C to terminate.');
+	setInterval(function() {
+		console.log(process.memoryUsage());
+	}, 5000);
 });
