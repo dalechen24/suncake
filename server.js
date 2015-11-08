@@ -6,12 +6,10 @@ var http = require('http');
 var server = express();
 server.set('port', process.env.PORT || 3000);
 server.use(express.static('public'));
-var connected_num = 0;
 
 // http verbs
 server.get('/', function(req, res) {
-	connected_num++;
-	console.log(connected_num);
+	console.log(req.ip);
 	res.send('Hello World from GET request.');
 });
 
