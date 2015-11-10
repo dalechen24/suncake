@@ -7,7 +7,6 @@ var http = require('http');
 var server = express();
 server.set('port', process.env.PORT || 3000);
 server.use(express.static('public'));
-console.log(ip.address());
 var ip_tmp = "";
 
 // http verbs
@@ -45,7 +44,7 @@ server.use(function(err, req, res, next) {
 
 // server listen on...
 server.listen(server.get('port'), function() {
-	console.log('Server started on localhost:' + server.get('port') + '; press Ctrl-C to terminate.');
+	console.log('Server started on ' + ip.address() + ':' + server.get('port') + '; press Ctrl-C to terminate.');
 	setInterval(function() {
 		console.log(process.memoryUsage());
 	}, 5000);
