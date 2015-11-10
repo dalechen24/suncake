@@ -1,4 +1,5 @@
 // loading modules
+var ip = require('ip');
 var express = require('express');
 var http = require('http');
 
@@ -6,10 +7,15 @@ var http = require('http');
 var server = express();
 server.set('port', process.env.PORT || 3000);
 server.use(express.static('public'));
+console.log(ip.address());
+var ip_tmp = "";
 
 // http verbs
 server.get('/', function(req, res) {
-	console.log(req.ip);
+	if(ip_tmp != req.ip) {
+		ip_tmp = req.ip;
+		console.log(ip_tmp);
+	}
 	res.send('Hello World from GET request.');
 });
 

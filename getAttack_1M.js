@@ -14,5 +14,5 @@ var client = net.connect({
 });
 
 client.on('error', function(e) {
-	console.log("can't connect to server.");
+	console.log("disconnected");
 })
