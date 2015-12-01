@@ -2,23 +2,39 @@
 var ip = require('ip');
 var express = require('express');
 var http = require('http');
+var jade = require('jade');
 
 // initial server
 var server = express();
+
 server.set('port', process.env.PORT || 3000);
-server.use(express.static('public'));
+server.use(express.static(__dirname));
+server.set('views', 'views');
+server.set('view engine', 'jade');
+
 var ip_tmp = "";
+var req_counter = 0;
 
 // http verbs
-server.get('/', function(req, res) {
+function testEnter(req) {
+	req_counter += 1;
 	if(ip_tmp != req.ip) {
 		ip_tmp = req.ip;
-		console.log(ip_tmp);
+		console.log(ip_tmp + " entered");
 	}
+}
+server.get('/', function(req, res) {
+	testEnter(req);
 	res.send('Hello World from GET request.');
 });
 
+server.get('/index', function(req, res) {
+	testEnter(req);
+	res.render('index');
+})
+
 server.post('/', function(req, res) {
+	testEnter(req);
 	res.end('Hello World from POST request.');
 });
 
@@ -46,6 +62,6 @@ server.use(function(err, req, res, next) {
 server.listen(server.get('port'), function() {
 	console.log('Server started on ' + ip.address() + ':' + server.get('port') + '; press Ctrl-C to terminate.');
 	setInterval(function() {
-		console.log(process.memoryUsage());
+		console.log(req_counter);
 	}, 5000);
 });
